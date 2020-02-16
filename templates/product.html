@@ -1,0 +1,77 @@
+﻿{% extends 'base/base.html'%}
+{% block base_content %}
+<section>
+
+<!-- 产品 -->
+<div style="padding-top: 0px; margin-top:0px; padding-bottom:10px">
+
+    <div class="container">
+        <div class="row">
+        <!-- 产品中心 -->
+        <div class="col-xs-12 col-sm-8 col-md-9" id="rightBox">
+
+            <div class="positionBox">
+               <div class="titleBar">
+                    <h1>当前位置</h1>
+                    <span></span>
+                    <a href="/">首页</a> > <a href="{% url 'product:product_index' %}">产品中心</a> > {{ category.name }}
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 pad">
+
+                <div class="productList">
+                    {% for item in products %}
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-mm-6 productImg">
+                        <a title="{{ item.title }}" href='{% url "product:product_detail" product_id=item.id %}'>
+                            <span class="imgLink-hover"><span class="hover-link"></span></span>
+                            <img src="/s/upload/{{ item.image }}" alt="{{ item.title }}" />
+                        </a>
+                        <a class="productTitle" href="{% url "product:product_detail" product_id=item.id %}" title="{{ item.title }}">
+                            {{ item.title }}
+                        </a>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 产品分类 -->
+        <div class="col-xs-12 col-sm-4 col-md-3">
+
+            <div class="navigationBox" id="classification">
+                <div class="titleBar">
+                    <h1>产品分类</h1>
+                    <span></span>
+                </div>
+                <div class="list">
+                    <ul id="firstpane">
+                        {% for item in categories %}
+                        <li>
+                            {% if item.name == category.name %}
+                            <a class='' style="color: #3477c8;" href='{% url 'product:product' category_id=item.id %}'>
+                            {% else %}
+                            <a class='' href='{% url 'product:product' category_id=item.id %}'>
+                            {% endif %}
+                                {{ item.name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 联系方式 -->
+        </div>
+
+    </div>
+    </div>
+</div>
+
+<div style="height: 10px;"></div>
+
+</section>
+{% endblock %}
